@@ -80,7 +80,7 @@ export default function AgentPage() {
 
   return (
     <div className="min-h-screen bg-primary-dark">
-      <Hero mode="agent" />
+      <Hero mode="agent" rightSlot={<AppForm mode="agent" compact />} />
       <HowItWorks mode="agent" />
       <AppForm mode="agent" />
       <Features />

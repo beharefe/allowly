@@ -11,11 +11,18 @@ import {
 
 type HeroMode = "human" | "agent";
 
-export default function Hero({ mode = "human" }: { mode?: HeroMode }) {
+export default function Hero({
+  mode = "human",
+  rightSlot,
+}: {
+  mode?: HeroMode;
+  rightSlot?: React.ReactNode;
+}) {
   const isHuman = mode === "human";
+  const hasRight = !!rightSlot;
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-primary-dark">
+    <section className="relative min-h-screen flex items-center bg-primary-dark">
       <div className="absolute inset-0 bg-mesh" />
 
       <motion.div
@@ -23,7 +30,6 @@ export default function Hero({ mode = "human" }: { mode?: HeroMode }) {
         animate="animate"
         variants={floatingAnimation}
       />
-
       <motion.div
         className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/3 rounded-full blur-3xl"
         animate="animate"
@@ -35,155 +41,147 @@ export default function Hero({ mode = "human" }: { mode?: HeroMode }) {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div
-          className="relative z-10 mx-auto max-w-3xl text-center"
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUpStagger}
-        >
-          <motion.div className="mb-8" variants={fadeInUp}>
-            <span className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm font-medium text-accent-light border border-accent/20">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+      <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
+        <div className={hasRight ? "grid lg:grid-cols-2 gap-12 lg:gap-16 items-center" : "flex justify-center"}>
+
+          {/* Left — text */}
+          <motion.div
+            className={hasRight ? "flex flex-col" : "max-w-3xl text-center"}
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUpStagger}
+          >
+            <motion.div className="mb-4" variants={fadeInUp}>
+              <a
+                href="/"
+                className="inline-flex items-center gap-1.5 text-sm text-white/60 hover:text-white transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Choose your side
+              </a>
+            </motion.div>
+
+            <motion.div className="mb-8" variants={fadeInUp}>
+              <span className="inline-flex items-center gap-2 rounded-full glass px-4 py-1.5 text-sm font-medium text-accent-light border border-accent/20">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+                </span>
+                Now open to everyone
               </span>
-              Now open to everyone
-            </span>
-          </motion.div>
+            </motion.div>
 
-          <motion.h1
-            className="mb-6 text-5xl sm:text-6xl lg:text-7xl font-display font-semibold tracking-tight text-white leading-tight"
-            variants={fadeInUp}
-          >
-            {isHuman ? (
-              <>
-                Send money to the people you{" "}
-                <span className="text-gradient-subtle">love</span>.
-                <br className="hidden sm:block" />
-                <span className="bg-gradient-to-r from-[#9945FF] to-[#14F195] bg-clip-text text-transparent font-bold">
-                  On autopilot.
-                </span>
-              </>
-            ) : (
-              <>
-                Autonomous allowances.{" "}
-                <br className="hidden sm:block" />
-                <span className="bg-gradient-to-r from-[#9945FF] to-[#14F195] bg-clip-text text-transparent font-bold">
-                  For AI agents.
-                </span>
-              </>
-            )}
-          </motion.h1>
-
-          <motion.p
-            className="mb-10 text-lg sm:text-xl text-muted max-w-2xl mx-auto leading-relaxed"
-            variants={fadeInUp}
-          >
-            {isHuman ? (
-              <>Set up automated USDC transfers for parents, partners, siblings,
-              anyone you care about. No apps, no approvals — just simple, reliable
-              recurring payments on Solana.</>
-            ) : (
-              <>Set up pay-as-you-go USDC allowances for AI agents. They claim funds
-              on-demand within budget limits. Budget depletes, resets periodically.</>
-            )}
-          </motion.p>
-
-          <motion.div
-            className="flex flex-col items-center justify-center gap-4 sm:flex-row mb-8"
-            variants={fadeInUp}
-          >
-            <motion.a
-              href="/#get-started"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-8 py-4 text-base font-semibold text-white shadow-glow hover:bg-accent-hover transition-colors"
-              variants={buttonPress}
-              initial="rest"
-              whileHover="hover"
-              whileTap="tap"
+            <motion.h1
+              className="mb-6 text-5xl sm:text-6xl lg:text-7xl font-display font-semibold tracking-tight text-white leading-tight"
+              variants={fadeInUp}
             >
-              Get Started
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
-            </motion.a>
+              {isHuman ? (
+                <>
+                  Send money to the people you{" "}
+                  <span className="text-gradient-subtle">love</span>.
+                  <br className="hidden sm:block" />
+                  <span className="bg-gradient-to-r from-[#9945FF] to-[#14F195] bg-clip-text text-transparent font-bold">
+                    On autopilot.
+                  </span>
+                </>
+              ) : (
+                <>
+                  Autonomous allowances.{" "}
+                  <br className="hidden sm:block" />
+                  <span className="bg-gradient-to-r from-[#9945FF] to-[#14F195] bg-clip-text text-transparent font-bold">
+                    For AI agents.
+                  </span>
+                </>
+              )}
+            </motion.h1>
 
-            <motion.a
-              href="/#how-it-works"
-              className="inline-flex items-center justify-center gap-2 rounded-xl glass px-8 py-4 text-base font-semibold text-white glass-hover"
-              variants={buttonPress}
-              initial="rest"
-              whileHover="hover"
-              whileTap="tap"
+            <motion.p
+              className={`mb-10 text-lg sm:text-xl text-muted leading-relaxed ${hasRight ? "max-w-lg" : "max-w-2xl mx-auto"}`}
+              variants={fadeInUp}
             >
-              Learn how it works
-            </motion.a>
+              {isHuman ? (
+                <>Set up automated USDC transfers for parents, partners, siblings,
+                anyone you care about. No apps, no approvals — just simple, reliable
+                recurring payments on Solana.</>
+              ) : (
+                <>Set up pay-as-you-go USDC allowances for AI agents. They claim funds
+                on-demand within budget limits. Budget depletes, resets periodically.</>
+              )}
+            </motion.p>
+
+            <motion.div
+              className={`flex flex-col gap-4 sm:flex-row mb-8 ${hasRight ? "" : "items-center justify-center"}`}
+              variants={fadeInUp}
+            >
+              <motion.a
+                href="#get-started"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-8 py-4 text-base font-semibold text-white shadow-glow hover:bg-accent-hover transition-colors"
+                variants={buttonPress}
+                initial="rest"
+                whileHover="hover"
+                whileTap="tap"
+              >
+                Get Started
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </motion.a>
+              <motion.a
+                href="#how-it-works"
+                className="inline-flex items-center justify-center gap-2 rounded-xl glass px-8 py-4 text-base font-semibold text-white glass-hover"
+                variants={buttonPress}
+                initial="rest"
+                whileHover="hover"
+                whileTap="tap"
+              >
+                Learn how it works
+              </motion.a>
+            </motion.div>
+
+            <motion.div
+              className={`flex flex-wrap gap-6 text-sm text-muted ${hasRight ? "" : "items-center justify-center"}`}
+              variants={fadeInUp}
+            >
+              <span className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                Secure
+              </span>
+              <span className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                No custody
+              </span>
+              <span className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                Quick setup
+              </span>
+            </motion.div>
           </motion.div>
 
-          <motion.div
-            className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted"
-            variants={fadeInUp}
-          >
-            <span className="flex items-center gap-2">
-              <svg
-                className="w-5 h-5 text-accent"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                />
-              </svg>
-              Secure
-            </span>
-            <span className="flex items-center gap-2">
-              <svg
-                className="w-5 h-5 text-accent"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                />
-              </svg>
-              No custody
-            </span>
-            <span className="flex items-center gap-2">
-              <svg
-                className="w-5 h-5 text-accent"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
-              Quick setup
-            </span>
-          </motion.div>
-        </motion.div>
+          {/* Right — form slot */}
+          {hasRight && (
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="flex flex-col gap-4 max-w-md w-full mx-auto"
+            >
+              <p className="text-2xl font-bold bg-gradient-to-r from-[#9945FF] to-[#14F195] bg-clip-text text-transparent">
+                {isHuman
+                  ? "Set up an allowance in seconds."
+                  : "Configure agent allowance in seconds."}
+              </p>
+              {rightSlot}
+            </motion.div>
+          )}
+        </div>
       </div>
 
       <motion.div
