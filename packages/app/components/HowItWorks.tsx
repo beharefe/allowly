@@ -12,9 +12,9 @@ export default function HowItWorks({ mode = "human" }: { mode?: HowItWorksMode }
   const humanSteps = [
     {
       number: 1,
-      title: "Connect Wallet",
+      title: "Sign In",
       description:
-        "Parent connects their Web3 wallet to securely authenticate with Allowly.",
+        "Connect a Solana wallet or sign with an Action Code — no browser extension required.",
       icon: (
         <svg
           className="w-6 h-6"
@@ -99,9 +99,9 @@ export default function HowItWorks({ mode = "human" }: { mode?: HowItWorksMode }
   const agentSteps = [
     {
       number: 1,
-      title: "Connect Wallet",
+      title: "Sign In",
       description:
-        "Human connects their Web3 wallet to securely authenticate with Allowly.",
+        "Connect a Solana wallet or sign with an Action Code — no browser extension required.",
       icon: (
         <svg
           className="w-6 h-6"

@@ -66,9 +66,9 @@ const features = [
     ),
   },
   {
-    title: "Wallet-Only Simplicity",
+    title: "No Extension Needed",
     description:
-      "No accounts to create, no passwords to remember, no email required. Just connect your wallet and you're ready to go. It doesn't get simpler than this.",
+      "No accounts to create, no passwords to remember, no email required. Connect a wallet or sign with an Action Code — works on any device, any browser.",
     icon: (
       <svg
         className="h-6 w-6"

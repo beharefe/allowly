@@ -293,8 +293,11 @@ export async function getPolicies(
 ): Promise<PolicyListResult> {
   const tributary = getTributary(wallet);
   const userPayment = await getUserPayment(wallet);
+  if (!userPayment) {
+    return { subscriptions: [], payAsYouGo: [], userPaymentPubkey: null };
+  }
   const policies = await tributary.getPaymentPoliciesByUser(
-    userPayment!.pubkey,
+    userPayment.pubkey,
   );
   const subscriptionPolicies: SubscriptionPolicy[] = [];
   const payAsYouGoPolicies: PayAsYouGoPolicy[] = [];

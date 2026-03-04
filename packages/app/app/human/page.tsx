@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 export default function HumanPage() {
   return (
     <div className="min-h-screen bg-primary-dark">
-      <Hero mode="human" />
+      <Hero mode="human" rightSlot={<AppForm mode="human" compact />} />
       <HowItWorks mode="human" />
       <UseCases />
       <AppForm mode="human" />
